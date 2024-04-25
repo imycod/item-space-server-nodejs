@@ -1,0 +1,23 @@
+{
+  "name": "item-space-server-nodejs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "run-xlsx": "node ./scripts/xlsx/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/imycod/item-space-server-nodejs.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/imycod/item-space-server-nodejs/issues"
+  },
+  "homepage": "https://github.com/imycod/item-space-server-nodejs#readme",
+  "dependencies": {
+    "xlsx": "^0.18.5"
+  }
+}
