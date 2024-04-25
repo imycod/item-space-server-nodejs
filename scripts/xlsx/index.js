@@ -12,7 +12,7 @@ const worksheet = workbook.Sheets[sheetName];
 // 将Excel数据转换成JSON格式
 const data = XLSX.utils.sheet_to_json(worksheet);
 
-// 打印解析后的数据
+// 打印解析后的数据 //
 // console.log(data);
 
 let category, subcategory = '';
