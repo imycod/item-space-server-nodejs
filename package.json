@@ -18,6 +18,12 @@
   },
   "homepage": "https://github.com/imycod/item-space-server-nodejs#readme",
   "dependencies": {
+    "express": "^4.19.2",
+    "express-session": "^1.18.0",
+    "jsonwebtoken": "^9.0.2",
     "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "cors": "^2.8.5"
   }
 }

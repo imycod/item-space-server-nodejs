@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<h1>client A</h1>
+
+<script>
+    //如果有token代表登录过了 如果没有跳转到 登录页面也就是SSO 那个页面，并且地址栏携带AppID
+    const token = location.search.split('=')[1]
+    if (!token) {
+        fetch('http://localhost:3000/login?appId=Rs6s2aHi').then(res => {
+            location.href = res.url
+        })
+    }
+</script>
+
+</body>
+</html>

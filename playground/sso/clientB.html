@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<h1>client B</h1>
+
+<script>
+    //逻辑其实一样的只是区分了不用应用的AppId
+    const token = location.search.split('=')[1]
+    if (!token) {
+        fetch('http://localhost:3000/login?appId=Rs6s2aHi').then(res => {
+            location.href = res.url
+        })
+    }
+</script>
+
+</body>
+</html>
