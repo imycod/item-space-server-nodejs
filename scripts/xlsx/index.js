@@ -1,7 +1,7 @@
 const XLSX = require("xlsx");
 
 // 读取Excel文件
-const workbook = XLSX.readFile('PermissionList.xlsx');
+const workbook = XLSX.readFile(__dirname + '/PermissionList.xlsx');
 
 // 获取第一个sheet的名称
 const sheetName = workbook.SheetNames[0];
