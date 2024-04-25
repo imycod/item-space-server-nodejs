@@ -6,8 +6,8 @@ import jwt from 'jsonwebtoken'
 
 const appToMapUrl = {
     'Rs6s2aHi': {
-        url: "http://localhost:3001",
-        name: 'clientA',
+        url: "http://localhost:5173",
+        name: 'item ship',
         secretKey: '%Y&*VGHJKLsjkas',
         token: ""
     },
