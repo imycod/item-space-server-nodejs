@@ -14,13 +14,35 @@
         账号：<input name="username" id="username" type="text">
     </label>
     <label for="password">密码：<input name="password" id="password" type="password"></label>
-    <label for="appId"><input name="appId" value="" id="appId" type="hidden"></label>
+    <label for="client_id"><input name="client_id" value="" id="client_id" type="hidden"></label>
     <button type="submit" id="button">登录</button>
 </form>
 <script>
+
+    function parseUrl(url) {
+        const parsedUrl = new URL(url);
+        const params = {};
+
+        // 获取查询参数
+        parsedUrl.searchParams.forEach((value, key) => {
+            params[key] = value;
+        });
+
+        return {
+            protocol: parsedUrl.protocol,
+            host: parsedUrl.host,
+            pathname: parsedUrl.pathname,
+            params: params
+        };
+    }
+
     //读取AppId
-    const appId = location.search.split('=')[1]
-    document.getElementById('appId').value = appId
+    const paramsObj = parseUrl(location.href);
+    console.log(paramsObj);
+    const clientId = paramsObj.params['client_id'];
+    const redirectUrl = paramsObj.params['redirect_url'];
+    console.log(clientId, redirectUrl)
+    document.getElementById('client_id').value = clientId
 </script>
 </body>
 

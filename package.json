@@ -5,7 +5,8 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "run:xlsx": "node ./scripts/xlsx/index.js"
+    "xlsx": "node ./scripts/xlsx/index.js",
+    "item:sso":"nodemon ./playground/item-sso/index.js"
   },
   "repository": {
     "type": "git",
