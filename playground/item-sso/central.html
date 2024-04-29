@@ -3,18 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <body>
 
 <h1>central</h1>
 
 <script>
-    //如果有token代表登录过了 如果没有跳转到 登录页面也就是SSO 那个页面，并且地址栏携带AppID
-    const token = location.search.split('=')[1]
+    function getCookieValue(cookieName) {
+        const cookies = document.cookie.split('; ');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].split('=');
+            if (cookie[0] === cookieName) {
+                return cookie[1];
+            }
+        }
+        return null; // 如果未找到对应的 cookie，则返回 null
+    }
+
+    const token = getCookieValue('token');
+
     if (!token) {
-        fetch('http://localhost:3000/login?client_Id=item_central').then(res => {
-            location.href = res.url
-        })
+        axios.post('/api/login', {}, {
+            headers: {
+                'client_id': 'item_central',
+            }
+        }).then(res => {
+            location.href = res.headers.location
+        }).catch(function (error) {
+            if (error.response) {
+                // 请求成功发出且服务器也响应了状态码，但状态代码超出了 2xx 的范围
+                console.log(error.response.data);
+                console.log(error.response.status);
+                console.log(error.response.headers);
+            } else if (error.request) {
+                // 请求已经成功发起，但没有收到响应
+                // `error.request` 在浏览器中是 XMLHttpRequest 的实例，
+                // 而在node.js中是 http.ClientRequest 的实例
+                console.log(error.request);
+            } else {
+                // 发送请求时出了点问题
+                console.log('Error', error.message);
+            }
+            console.log(error.config);
+        });
     }
 </script>
 

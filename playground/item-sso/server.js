@@ -31,6 +31,8 @@ export default () => {
         name: 'token',
         secret: "$%^&*()_+DFGHJKL",
         cookie: {
+            // domain: '.item.com', // 设置 domain 选项
+            // path:'/',
             httpOnly: false,
             maxAge: 1000 * 60 * 60 * 24 * 7, //过期时间
         }
@@ -38,20 +40,25 @@ export default () => {
     const genToken = (client_id) => {
         return jwt.sign({client_id}, applicationMap[client_id].secretKey)
     }
-
-    app.get('/', (req, res) => {
-        console.log('aaaaaaaaaaaaaaa')
-        res.send({
-            status: 200
-        })
-    })
+    const verifyToken = (token, client_id) => {
+        return jwt.verify(token, applicationMap[client_id].secretKey)
+    }
+    // app.get('/', (req, res) => {
+    //     console.log('aaaaaaaaaaaaaaa')
+    //     res.send({
+    //         status: 200
+    //     })
+    // })
 
     app.post('/login', (req, res) => {
-        console.log('req.session---', req.session);
-        //注意看逻辑 如果登陆过 就走if 没有登录过就走下面的
+        const appId = req.headers['client_id']
+        const token = req.headers['token']
+
+        const decode = verifyToken(token, appId)
+        console.log('decode---',decode)
+
         if (req.session.username) {
             //登录过
-            const appId = req.headers['client_id']
             const url = applicationMap[appId].url
             let token;
             //登录过如果存过token就直接取 没有存过就生成一个 因为可能有多个引用A登录过读取Token   B没有登录过生成Token 存入映射表
@@ -98,15 +105,6 @@ export default () => {
         const html = fs.readFileSync(filePath, 'utf-8')
         res.send(html)
     })
-    // app.post('/auth/oauth/token', (req, res) => {
-    //     const clientId = req.headers['client_id']
-    //     console.log('clientId-----', clientId)
-    //     const redirect = applicationMap[clientId].url
-    //     //没有登录 返回一个登录页面html
-    //     res.setHeader('location', `http://localhost:3000/loginPage?client_id=${clientId}&redirect_url=${redirect}`)
-    //     res.status(206)
-    //     res.end()
-    // })
 
     //启动3000端口 1
     app.listen(3000, () => {
