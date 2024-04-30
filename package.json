@@ -5,7 +5,8 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "run:xlsx": "node ./scripts/xlsx/index.js"
+    "xlsx": "node ./scripts/xlsx/index.js",
+    "refresh:token": "nodemon ./playground/refresh-token/server.js"
   },
   "repository": {
     "type": "git",
