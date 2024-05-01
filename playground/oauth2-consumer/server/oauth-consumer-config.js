@@ -1,6 +1,6 @@
 module.exports = {
-  name: 'Example Consumer App'
-, icon: 'http://example.com/icon_64.png'
-, clientId: 'ward-steward-2'
-, clientSecret: 'something truly secret'
+    name: 'ship',
+    icon: 'http://example.com/icon_64.png',
+    clientId: 'abc123',
+    clientSecret: 'ssh-secret'
 };

@@ -46,7 +46,7 @@ app.get('/api/clientinfo', routes.client.info);
 // vs.
 // https://zeit.co/docs/v2/deployments/official-builders/node-js-now-node/
 
-app.listen(process.env.PORT || 3000);
+app.listen(process.env.PORT || 3009);
 
 // Required for @now/node, optional for @now/node-server.
 module.exports = app;
