@@ -45,11 +45,12 @@ app.get('/token/protection', (req, res) => {
 
 app.get('/token/refresh', (req, res) => {
 	// 用长token换短token
-	const refreshToken = req.headers['x-refresh-token'];
+	const refreshToken = req.headers['authorization'];
 	if (!refreshToken) {
 		return res.status(401).send('Refresh token is required');
 	}
 	try {
+		console.log(refreshToken);
 		const payload = jwt.verify(refreshToken, REFRESH_SECRET_KEY);
 		const newToken = jwt.sign({ username: payload.username }, SECRET_KEY, { expiresIn: '3s' });
 
