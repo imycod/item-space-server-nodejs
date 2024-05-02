@@ -1,7 +1,6 @@
 import axios, {AxiosInstance, AxiosRequestConfig, AxiosResponse} from "axios"
 import eventEmitter from "@/utils/eventEmitter.ts";
 import {Local, Session} from "@/utils/storage.ts"
-import {useUserInfo} from '@/stores/userInfo';
 
 const ins = axios.create({
     baseURL: import.meta.env.VITE_API_URL,
@@ -14,7 +13,7 @@ function requestSuccessCallback(config: AxiosRequestConfig<any>) {
     if (token && !config.headers?.skipToken) {
         config.headers['authorization'] = `Bearer ${token}`;
     }
-    console.log('import.meta.env.VITE_CLIENT_ID;---',import.meta.env.VITE_CLIENT_ID)
+    console.log('import.meta.env.VITE_CLIENT_ID;---', import.meta.env.VITE_CLIENT_ID)
     config.headers['client_id'] = import.meta.env.VITE_CLIENT_ID;
 
     console.log('config---', config)
@@ -37,7 +36,7 @@ ins.interceptors.request.use(requestSuccessCallback, requestErrorCallback)
 ins.interceptors.response.use(responseSuccessCallback, responseErrorCallback)
 
 function responseSuccessCallback(response: AxiosResponse<any>) {
-    console.log('response----', response)
+    console.log('response----responseSuccessCallback', response.data)
     if (response.status === 206) {
         eventEmitter.emit('API:UN_LOGIN', response)
         Session.clear();
@@ -47,16 +46,17 @@ function responseSuccessCallback(response: AxiosResponse<any>) {
 }
 
 function responseErrorCallback(error) {
+    console.log('error--',error)
+    console.log('error.response--',error.response)
     const status = Number(error.response.status)
     if (status === 424) {
         Session.clear(); // 清除浏览器全部临时缓存
-        useUserInfo().login({});
         return;
     }
     if (status === 404) {
         eventEmitter.emit('API:NOT_FOUND')
     }
-    if (status === 500){
+    if (status === 500) {
         eventEmitter.emit('API:NOT_SERVICE_ERROR')
     }
     return Promise.reject(error)
