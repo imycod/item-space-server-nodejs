@@ -6,8 +6,8 @@
   "type": "module",
   "scripts": {
     "xlsx": "node ./scripts/xlsx/index.js",
-    "item:sso": "nodemon ./playground/item-sso/index.js",
-    "oauth:consumer": "nodemon ./playground/oauth2-consumer/server/app.js",
+    "item:sso": "nodemon playground/item-sso-demo/index.js",
+    "oauth:consumer": "nodemon playground/oauth2-consumer-demo/server/app.js",
     "oauth:provider": "nodemon ./playground/oauth2-provider/app.js"
   },
   "repository": {
