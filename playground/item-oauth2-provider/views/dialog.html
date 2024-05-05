@@ -22,12 +22,30 @@
 <script src="https://cdn.bootcdn.net/ajax/libs/axios/1.6.8/axios.min.js"></script>
 <script>
     const {ref, reactive, onMounted, createApp} = Vue
+
+    function parseUrl(url) {
+        const parsedUrl = new URL(url);
+        const params = {};
+
+        // 获取查询参数
+        parsedUrl.searchParams.forEach((value, key) => {
+            params[key] = value;
+        });
+
+        return {
+            protocol: parsedUrl.protocol,
+            host: parsedUrl.host,
+            pathname: parsedUrl.pathname,
+            params: params
+        };
+    }
+
     const app = createApp({
         setup() {
-            const state =reactive({
-                user:{},
-                client:{},
-                transaction_id:''
+            const state = reactive({
+                user: {},
+                client: {},
+                transaction_id: ''
             })
             const getData = async () => {
                 axios.get('/dialog/authorize/decision-before').then(res => {
@@ -39,19 +57,26 @@
 
             function decision(type) {
                 const data = {}
-                data['transaction_id'] = ''
+                data['transaction_id'] = state.transactionID
                 if (type === 'Deny') {
                     data['cancel'] = 'Deny'
                 }
-                axios.post('/', data).then(res => {
+                axios.post('/dialog/authorize/decision', data).then(res => {
                     console.log(res)
+                    if (res.status === 206) {
+                        window.location.href = res.data.redirect_uri
+                    }
                 }).catch(err => {
                     console.log(err)
                 })
             }
 
             onMounted(() => {
-
+                //读取AppId
+                const paramsObj = parseUrl(location.href);
+                console.log(paramsObj);
+                state.client.name = paramsObj.params.client_name
+                state.transactionID = paramsObj.params.transactionId
                 getData()
             })
             return {

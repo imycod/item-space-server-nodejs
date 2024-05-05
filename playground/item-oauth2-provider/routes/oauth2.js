@@ -205,7 +205,7 @@ module.exports.authorization = [
     // response.sendFile('dialog.html', {root: 'views'})
     console.log('auth----->200',{ transactionId: request.oauth2.transactionID, user: request.user, client: request.oauth2.client })
     response.status(206)
-    response.setHeader('location', `http://localhost:3001/dialog/authorize/decision?transactionId=${transactionId}&client_name=${request.oauth2.client.name}`)
+    response.setHeader('location', `http://localhost:3001/dialog/authorize/decision?transactionId=${request.oauth2.transactionID}&client_name=${request.oauth2.client.name}`)
     response.end()
     // response.render('dialog', { transactionId: request.oauth2.transactionID, user: request.user, client: request.oauth2.client });
   },

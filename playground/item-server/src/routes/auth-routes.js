@@ -41,7 +41,13 @@ router.get('/item', passport.authenticate('item', {
     scope: ['profile']
 }))
 router.get('/item/callback', passport.authenticate('item'), (req, res) => {
-    res.send('your are authenticated with item first!')
+    // res.status(206)
+    // res.setHeader('location', ``)
+    // res.end()
+    res.status(206).send({
+        message: 'auth success',
+        redirect_uri: 'http://127.0.0.1:5173/'
+    })
 })
 
 export default router;

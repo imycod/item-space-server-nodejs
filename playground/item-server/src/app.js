@@ -8,6 +8,7 @@ import userRoutes from "./routes/user-routes.js";
 import setupPassport from "./config/passport-setup.js";
 import path from 'path';
 import {fileURLToPath} from 'url';
+import cors from "cors"
 
 configDotenv(); // require('dotenv').config() | dotenv.config() by default
 
@@ -20,6 +21,7 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '../src/views')); // 执行的目录是dist，因此需要回退到src目录
 app.use(express.static(path.join(__dirname, '../src/views'))); // 执行的目录是dist，因此需要回退到src目录
 app.use(express.json())
+app.use(cors())
 app.use(cookieSession({
     maxAge: 24 * 60 * 60 * 1000, // day = hour * minute * second * millisecond
     keys: [process.env.SESSION_COOKIE_KEY],

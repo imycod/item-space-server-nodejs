@@ -65,7 +65,7 @@ const OAuth2Strategy = passportOauth.OAuth2Strategy
 const itemStrategy = new OAuth2Strategy({
     authorizationURL: 'http://localhost:3001/dialog/authorize',
     tokenURL: 'http://localhost:3001/oauth/token',
-    callbackURL: '/auth/item/callback',
+    callbackURL: clientConfig['item_ship'].redirect_uri,
     clientID: clientConfig['item_ship'].client_id,
     clientSecret: clientConfig['item_ship'].client_secret
 }, function (accessToken, refreshToken, profile, done) {

@@ -32,6 +32,8 @@ eventEmitter.on('API:UN_LOGIN', (response) => {
 router.beforeEach(async (to: RouteLocationNormalized, from: RouteLocationNormalized, next: any) => {
     const stores = userInfo()
     const loggedIn = await stores.checkStatus()
+    alert('response.headers.location----->', 1111111111111)
+    console.log('loggedIn---',loggedIn)
     // if (loggedIn) {
     //     next()
     // }
