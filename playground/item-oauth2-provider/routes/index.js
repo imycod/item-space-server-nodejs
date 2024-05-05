@@ -4,6 +4,7 @@ const site = require('./site');
 const oauth2 = require('./oauth2');
 const user = require('./user');
 const client = require('./client');
+const userRoutes = require('./user');
 
 module.exports = {
   site,

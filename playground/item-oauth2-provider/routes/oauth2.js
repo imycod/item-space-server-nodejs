@@ -200,6 +200,7 @@ module.exports.authorization = [
     });
   }),
   (request, response) => {
+    // todo
     response.render('dialog', { transactionId: request.oauth2.transactionID, user: request.user, client: request.oauth2.client });
   },
 ];

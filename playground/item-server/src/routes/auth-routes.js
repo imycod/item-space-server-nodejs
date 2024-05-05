@@ -12,15 +12,6 @@ router.get('/login', (req, res) => {
     // 读取views/index.html文件并返回
     res.sendFile('login-page.html', {root: 'src/views'})
 })
-router.post('/login',(req,res)=>{
-    const client = clientConfig[req.headers.client_id]
-    if (!req.isAuthenticated()){
-        // 设置响应状态码
-        res.status(206)
-        res.setHeader('location',`http://127.0.0.1:3000/auth/login?redirect_uri=${client.redirect_uri}`)
-        res.end()
-    }
-})
 
 // auth/logout
 router.get('/logout', (req, res, next) => {
@@ -46,7 +37,7 @@ router.get('/google/callback', passport.authenticate('google'), (req, res) => {
 })
 
 // auth/item
-router.get('/item', passport.authenticate('item',{
+router.get('/item', passport.authenticate('item', {
     scope: ['profile']
 }))
 router.get('/item/callback', passport.authenticate('item'), (req, res) => {

@@ -15,6 +15,11 @@ export default defineConfig((mode) => {
                     changeOrigin: true,
                     rewrite: (path) => path.replace(/^\/api/, '')
                 },
+                '/oauth': {
+                    target: 'http://localhost:3001',
+                    changeOrigin: true,
+                    rewrite: (path) => path.replace(/^\/oauth/, '')
+                },
                 '/ollama': {
                     target: 'http://localhost:11434/api',
                     changeOrigin: true,
