@@ -1,6 +1,7 @@
 // create Router instance
 import {Router} from 'express';
 import passport from "passport";
+import {createProxyMiddleware,fixRequestBody} from "http-proxy-middleware";
 
 const router = Router();
 
@@ -34,7 +35,6 @@ router.get('/google', passport.authenticate('google', {
 router.get('/google/callback', passport.authenticate('google'), (req, res) => {
     res.redirect('/profile/')
 })
-
 
 // auth/item
 router.get('/item', passport.authenticate('item',{

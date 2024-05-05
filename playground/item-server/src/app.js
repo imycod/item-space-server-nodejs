@@ -7,6 +7,7 @@ import profileRoutes from "./routes/profile-routes.js"
 import setupPassport from "./config/passport-setup.js";
 import path from 'path';
 import {fileURLToPath} from 'url';
+import {createProxyMiddleware,fixRequestBody} from "http-proxy-middleware";
 
 configDotenv(); // require('dotenv').config() | dotenv.config() by default
 
@@ -18,6 +19,7 @@ const __dirname = path.dirname(__filename);
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '../src/views')); // 执行的目录是dist，因此需要回退到src目录
 app.use(express.static(path.join(__dirname, '../src/views'))); // 执行的目录是dist，因此需要回退到src目录
+app.use(express.json())
 app.use(cookieSession({
     maxAge: 24 * 60 * 60 * 1000, // day = hour * minute * second * millisecond
     keys: [process.env.SESSION_COOKIE_KEY]

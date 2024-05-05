@@ -156,11 +156,9 @@
         <div class="form">
             <div class="left">
                 <h1>login</h1>
-                <input type="email" name="email" placeholder="Email"/>
-                <input type="password" name="Password" placeholder="Password"/>
-                <a href="/auth/item">
-                    <button class="sign-in">Sign in</button>
-                </a>
+                <input type="email" v-model="state.username" name="email" placeholder="Email"/>
+                <input type="password" v-model="state.password" name="Password" placeholder="Password"/>
+                <button @click="login" class="sign-in">Sign in</button>
                 <a class="create-account" href="/">Create account</a>
             </div>
             <div class="right">
@@ -198,7 +196,13 @@
                 username: '',
                 password: ''
             })
-            const login = async () => {
+            const login = () => {
+                console.log(state)
+                axios.post('http://127.0.0.1:3001/login', state).then(res => {
+                    console.log(res)
+                }).catch(err => {
+                    console.log(err)
+                })
             }
             const loginGoogle = async () => {
                 await axios.get('/auth/google')
