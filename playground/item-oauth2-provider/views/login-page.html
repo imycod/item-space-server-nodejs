@@ -192,6 +192,9 @@
                 console.log(state)
                 axios.post('/login', state).then(res => {
                     console.log(res)
+                    if (res.status === 206){
+                        window.location.href = res.headers.location
+                    }
                 }).catch(err => {
                     console.log(err)
                 })

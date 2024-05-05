@@ -5,6 +5,7 @@ const passport = require('passport');
 const login = require('connect-ensure-login');
 const db = require('../db');
 const utils = require('../utils');
+const {transforms2d} = require("caniuse-lite/data/features");
 
 // Create OAuth 2.0 server
 const server = oauth2orize.createServer();
@@ -201,7 +202,12 @@ module.exports.authorization = [
   }),
   (request, response) => {
     // todo
-    response.render('dialog', { transactionId: request.oauth2.transactionID, user: request.user, client: request.oauth2.client });
+    // response.sendFile('dialog.html', {root: 'views'})
+    console.log('auth----->200',{ transactionId: request.oauth2.transactionID, user: request.user, client: request.oauth2.client })
+    response.status(206)
+    response.setHeader('location', `http://localhost:3001/dialog/authorize/decision?transactionId=${transactionId}&client_name=${request.oauth2.client.name}`)
+    response.end()
+    // response.render('dialog', { transactionId: request.oauth2.transactionID, user: request.user, client: request.oauth2.client });
   },
 ];
 

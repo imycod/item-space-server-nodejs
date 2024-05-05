@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<div id="app">
+    <p>Hi {{state.user.name}} !</p>
+    <p><b>{{state.client.name }}</b> is requesting access to your account.</p>
+    <p>Do you approve?</p>
+    <input name="transaction_id" v-model="state.transaction_id" type="hidden" value="<%= transactionId %>"/>
+    <div>
+        <input type="submit" value="allow" @click="decision('Allow')"/>
+        <input type="submit" value="deny" @click="decision('Deny')"/>
+    </div>
+</div>
+<script src="https://cdn.bootcdn.net/ajax/libs/vue/3.4.25/vue.global.prod.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/axios/1.6.8/axios.min.js"></script>
+<script>
+    const {ref, reactive, onMounted, createApp} = Vue
+    const app = createApp({
+        setup() {
+            const state =reactive({
+                user:{},
+                client:{},
+                transaction_id:''
+            })
+            const getData = async () => {
+                axios.get('/dialog/authorize/decision-before').then(res => {
+                    state.user = res.data.user
+                }).catch(err => {
+                    console.log(err)
+                })
+            }
+
+            function decision(type) {
+                const data = {}
+                data['transaction_id'] = ''
+                if (type === 'Deny') {
+                    data['cancel'] = 'Deny'
+                }
+                axios.post('/', data).then(res => {
+                    console.log(res)
+                }).catch(err => {
+                    console.log(err)
+                })
+            }
+
+            onMounted(() => {
+
+                getData()
+            })
+            return {
+                decision,
+                state
+            }
+        }
+    }).mount('#app')
+</script>
+</body>
+</html>
