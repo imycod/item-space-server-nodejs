@@ -69,26 +69,61 @@ const itemStrategy = new OAuth2Strategy({
     clientSecret: 'item_ship_secret'
 }, function (accessToken, refreshToken, profile, done) {
     console.log('OAuth2Strategy----->', {accessToken, refreshToken})
-    console.log('item---profile---->',profile)
-    // User.findOne({googleId: profile.id}).then((record) => {
-    //     if (record) {
-    //         // already have the user
-    //         // 传递给 serializeUser
-    //         done(null, record)
-    //     } else {
-    //         // if not, create user in our db
-    //         new User({
-    //             username: profile.displayName,
-    //             googleId: profile.id,
-    //             thumbnail: profile._json.picture
-    //         }).save().then((newUser) => {
-    //             console.log('new user created: ', newUser)
-    //             done(null, newUser) // when we call done, it will call serializeUser
-    //         })
-    //     }
-    // })
+    console.log('item---profile---->', profile)
+    User.findOne({itemId: profile.user_id}).then((record) => {
+        if (record) {
+            // already have the user
+            // 传递给 serializeUser
+            done(null, record)
+        } else {
+            // if not, create user in our db
+            new User({
+                username: profile.name,
+                itemId: profile.user_id,
+            }).save().then((newUser) => {
+                console.log('new user created: ', newUser)
+                done(null, newUser) // when we call done, it will call serializeUser
+            })
+        }
+    })
 })
 itemStrategy.name = 'item'
+
+itemStrategy.userProfile = function (accessToken, done) {
+    var me = this;
+
+    me._oauth2.get(
+        'http://127.0.0.1:3001/api/userinfo'
+        , accessToken
+        , function (err, body/*, res*/) {
+            var json
+                , profile
+            ;
+
+            if (err) {
+                return done(new InternalOAuthError('failed to fetch user profile', err));
+            }
+
+            if ('string' === typeof body) {
+                try {
+                    json = JSON.parse(body);
+                } catch (e) {
+                    done(e);
+                    return;
+                }
+            } else if ('object' === typeof body) {
+                json = body;
+            }
+
+            profile = json;
+            profile.provider = me.name;
+            profile._raw = body;
+            profile._json = json;
+
+            done(null, profile);
+        }
+    );
+};
 
 passport.use(itemStrategy)
 

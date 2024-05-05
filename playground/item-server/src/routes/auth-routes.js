@@ -37,7 +37,9 @@ router.get('/google/callback', passport.authenticate('google'), (req, res) => {
 
 
 // auth/item
-router.get('/item', passport.authenticate('item'))
+router.get('/item', passport.authenticate('item',{
+    scope: ['profile']
+}))
 router.get('/item/callback', passport.authenticate('item'), (req, res) => {
     res.send('your are authenticated with item first!')
 })
