@@ -1,7 +1,6 @@
 import axios, {AxiosInstance, AxiosRequestConfig, AxiosResponse} from "axios"
 import eventEmitter from "@/utils/eventEmitter.ts";
 import {Local, Session} from "@/utils/storage.ts"
-import {useUserInfo} from '@/stores/userInfo';
 
 const ins = axios.create({
     baseURL: import.meta.env.VITE_API_URL,
@@ -45,7 +44,6 @@ function responseErrorCallback(error) {
     const status = Number(error.response.status)
     if (status === 424) {
         Session.clear(); // 清除浏览器全部临时缓存
-        useUserInfo().login({});
         return;
     }
     if (status === 404) {

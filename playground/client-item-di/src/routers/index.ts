@@ -25,7 +25,7 @@ eventEmitter.on('API:UN_LOGIN', (response) => {
     window.location.href = response.headers.location
 })
 
-router.beforeEach((to: RouteLocationNormalized, from: RouteLocationNormalized, next: any) => {
+router.beforeEach(async (to: RouteLocationNormalized, from: RouteLocationNormalized, next: any) => {
     const stores = userInfo()
     const loggedIn = await stores.checkStatus()
     if (loggedIn) {
