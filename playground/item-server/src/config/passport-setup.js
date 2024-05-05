@@ -1,12 +1,11 @@
 import passport from 'passport';
 import GoogleOAuth2 from 'passport-google-oauth20';
+import passportOauth from "passport-oauth"
 import {HttpsProxyAgent} from "https-proxy-agent";
 import User from "../models/user.model.js"
 import {configDotenv} from "dotenv";
 
 configDotenv();
-
-const GoogleStrategy = GoogleOAuth2.Strategy;
 
 // once we have the user or user tag, we need to store the user in the session
 // 会和cookieSession一起工作
@@ -22,6 +21,8 @@ passport.deserializeUser((id, done) => {
         done(null, user) // 找到后把这个用户传递到下个stage
     })
 })
+
+const GoogleStrategy = GoogleOAuth2.Strategy;
 
 const googleStrategy = new GoogleStrategy({
     // options for the google strategy
@@ -50,7 +51,6 @@ const googleStrategy = new GoogleStrategy({
             })
         }
     })
-
 })
 
 // 设置代理 in China
@@ -59,6 +59,38 @@ const agent = new HttpsProxyAgent(process.env.HTTP_PROXY)
 googleStrategy._oauth2.setAgent(agent)
 
 passport.use(googleStrategy)
+
+const OAuth2Strategy = passportOauth.OAuth2Strategy
+const itemStrategy = new OAuth2Strategy({
+    authorizationURL: 'http://localhost:3001/dialog/authorize',
+    tokenURL: 'http://localhost:3001/oauth/token',
+    callbackURL: '/auth/item/callback',
+    clientID: 'item_ship',
+    clientSecret: 'item_ship_secret'
+}, function (accessToken, refreshToken, profile, done) {
+    console.log('OAuth2Strategy----->', {accessToken, refreshToken})
+    console.log('item---profile---->',profile)
+    // User.findOne({googleId: profile.id}).then((record) => {
+    //     if (record) {
+    //         // already have the user
+    //         // 传递给 serializeUser
+    //         done(null, record)
+    //     } else {
+    //         // if not, create user in our db
+    //         new User({
+    //             username: profile.displayName,
+    //             googleId: profile.id,
+    //             thumbnail: profile._json.picture
+    //         }).save().then((newUser) => {
+    //             console.log('new user created: ', newUser)
+    //             done(null, newUser) // when we call done, it will call serializeUser
+    //         })
+    //     }
+    // })
+})
+itemStrategy.name = 'item'
+
+passport.use(itemStrategy)
 
 export default function setupPassport(app) {
     app.use(passport.initialize())

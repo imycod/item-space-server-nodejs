@@ -8,7 +8,7 @@
     "dev": "npx nodemon ./src/app.js",
     "preserve": "npm run build",
     "serve": "npx concurrently \"npm run tailwind:build\"  \"npx tsc -w\" \"nodemon ./dist/index.js\"",
-    "tailwind:build": "tailwindcss -w ./src/views/index.css -o ./src/views/styles.css",
+    "tailwind:build": "npx update-browserslist-db & npx tailwindcss -w ./src/views/index.css -o ./src/views/styles.css",
     "prestart": "npm run build",
     "start": "node ./dist/index.js",
     "build": "rimraf dist && npx tsc",
@@ -33,6 +33,7 @@
     "typescript": "^5.4.5"
   },
   "dependencies": {
+    "caniuse-lite": "^1.0.30001615",
     "cookie-session": "^2.1.0",
     "ejs": "^3.1.10",
     "express": "^4.19.2",

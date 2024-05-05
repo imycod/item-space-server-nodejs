@@ -79,6 +79,9 @@ dependencies:
     version: 0.18.5
 
 devDependencies:
+  caniuse-lite:
+    specifier: ^1.0.30001615
+    version: 1.0.30001615
   concurrently:
     specifier: ^8.2.2
     version: 8.2.2
@@ -583,6 +586,10 @@ packages:
   /camelcase-css@2.0.1:
     resolution: {integrity: sha512-QOSvevhslijgYwRx6Rv7zKdMF8lbRmx+uQGx2+vDc+KI/eBnsy9kit5aj23AgGu3pa4t9AgwbnXWqS+iOY+2aA==}
     engines: {node: '>= 6'}
+    dev: true
+
+  /caniuse-lite@1.0.30001615:
+    resolution: {integrity: sha512-1IpazM5G3r38meiae0bHRnPhz+CBQ3ZLqbQMtrg+AsTPKAXgW38JNsXkyZ+v8waCsDmPq87lmfun5Q2AGysNEQ==}
     dev: true
 
   /cfb@1.2.2:
