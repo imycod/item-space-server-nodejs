@@ -3,7 +3,7 @@ import {
     createWebHashHistory,
     RouteLocationNormalized,
 } from 'vue-router';
-import {Session} from "@/utils/storage.ts";
+import {Cookie, Session} from "@/utils/storage.ts";
 import {userInfo} from "@/stores/userInfo.ts";
 import eventEmitter from "@/utils/eventEmitter.ts";
 
@@ -22,16 +22,16 @@ const router = createRouter({
 });
 
 eventEmitter.on('API:UN_LOGIN', (response) => {
-    alert(response.headers.location)
     window.location.href = response.headers.location
 })
 
-router.beforeEach((to: RouteLocationNormalized, from: RouteLocationNormalized, next: any) => {
-    const token = Session.get('token')
-    if (!token) {
-        userInfo().login({})
-    }else{
+router.beforeEach(async (to: RouteLocationNormalized, from: RouteLocationNormalized, next: any) => {
+    const stores = userInfo()
+    const loggedIn = await stores.checkStatus()
+    if (loggedIn) {
         next()
+    } else {
+        await stores.login({})
     }
 })
 

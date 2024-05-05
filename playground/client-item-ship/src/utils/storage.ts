@@ -49,7 +49,6 @@ export const Session = {
 	},
 	// 获取临时缓存
 	get(key: string) {
-		console.log(Cookies.get('token'))
 		if (key === 'token' || key === 'refresh_token') return Cookies.get(key);
 		let json = <string>window.sessionStorage.getItem(key);
 		return JSON.parse(json);
@@ -63,7 +62,6 @@ export const Session = {
 	clear() {
 		Cookies.remove('token');
 		Cookies.remove('refresh_token');
-		Cookies.remove('tenantId');
 		window.sessionStorage.clear();
 	},
 	// 获取当前存储的 token
@@ -71,3 +69,20 @@ export const Session = {
 		return this.get('token');
 	},
 };
+
+export const Cookie = {
+	set(key: string, val: any) {
+		Cookies.set(key, val);
+	},
+	get(key: string) {
+		console.log('key---',key)
+		console.log('Cookies.get(key)--',Cookies.get(key))
+		return Cookies.get(key);
+	},
+	remove(key: string) {
+		Cookies.remove(key);
+	},
+	clear() {
+		Cookies.clear()
+	},
+}

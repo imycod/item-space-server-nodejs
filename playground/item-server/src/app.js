@@ -4,10 +4,10 @@ import {configDotenv} from "dotenv";
 import moogoose from 'mongoose';
 import authRoutes from "./routes/auth-routes.js";
 import profileRoutes from "./routes/profile-routes.js"
+import userRoutes from "./routes/user-routes.js";
 import setupPassport from "./config/passport-setup.js";
 import path from 'path';
 import {fileURLToPath} from 'url';
-import {createProxyMiddleware,fixRequestBody} from "http-proxy-middleware";
 
 configDotenv(); // require('dotenv').config() | dotenv.config() by default
 
@@ -22,7 +22,7 @@ app.use(express.static(path.join(__dirname, '../src/views'))); // 执行的目�
 app.use(express.json())
 app.use(cookieSession({
     maxAge: 24 * 60 * 60 * 1000, // day = hour * minute * second * millisecond
-    keys: [process.env.SESSION_COOKIE_KEY]
+    keys: [process.env.SESSION_COOKIE_KEY],
 }));
 // initialize passport
 setupPassport(app)
@@ -36,7 +36,8 @@ moogoose.connect(process.env.MONGODB_URI)
     })
 
 app.use('/auth', authRoutes);
-app.use('/profile', profileRoutes)
+app.use('/profile', profileRoutes);
+app.use('/user',userRoutes);
 app.get('/', (req, res) => {
     res.render('home', {user: req.user})
 })

@@ -1,7 +1,7 @@
 // create Router instance
 import {Router} from 'express';
 import passport from "passport";
-import {createProxyMiddleware,fixRequestBody} from "http-proxy-middleware";
+import clientConfig from "../config/clients.js"
 
 const router = Router();
 
@@ -11,6 +11,15 @@ router.get('/login', (req, res) => {
     // res.redirect('http://127.0.0.1:8080/') // 重定向到前端页面会带来跨域问题，所以不建议这样做
     // 读取views/index.html文件并返回
     res.sendFile('login-page.html', {root: 'src/views'})
+})
+router.post('/login',(req,res)=>{
+    const client = clientConfig[req.headers.client_id]
+    if (!req.isAuthenticated()){
+        // 设置响应状态码
+        res.status(206)
+        res.setHeader('location',`http://127.0.0.1:3000/auth/login?redirect_uri=${client.redirect_uri}`)
+        res.end()
+    }
 })
 
 // auth/logout

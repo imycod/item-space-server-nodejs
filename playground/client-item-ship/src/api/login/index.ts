@@ -34,8 +34,7 @@ export const login = (data: any) => {
     console.log('dataObj----', dataObj)
 
     return request({
-        // url: '/auth/oauth/token',
-        url: '/api/login',
+        url: '/api/auth/login',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
             // isToken: false,

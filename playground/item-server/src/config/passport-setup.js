@@ -2,8 +2,9 @@ import passport from 'passport';
 import GoogleOAuth2 from 'passport-google-oauth20';
 import passportOauth from "passport-oauth"
 import {HttpsProxyAgent} from "https-proxy-agent";
-import User from "../models/user.model.js"
 import {configDotenv} from "dotenv";
+import User from "../models/user.model.js"
+import clientConfig from "./clients.js"
 
 configDotenv();
 
@@ -65,8 +66,8 @@ const itemStrategy = new OAuth2Strategy({
     authorizationURL: 'http://localhost:3001/dialog/authorize',
     tokenURL: 'http://localhost:3001/oauth/token',
     callbackURL: '/auth/item/callback',
-    clientID: 'item_ship',
-    clientSecret: 'item_ship_secret'
+    clientID: clientConfig['item_ship'].client_id,
+    clientSecret: clientConfig['item_ship'].client_secret
 }, function (accessToken, refreshToken, profile, done) {
     console.log('OAuth2Strategy----->', {accessToken, refreshToken})
     console.log('item---profile---->', profile)

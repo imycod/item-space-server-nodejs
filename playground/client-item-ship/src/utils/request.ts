@@ -13,10 +13,7 @@ function requestSuccessCallback(config: AxiosRequestConfig<any>) {
     if (token && !config.headers?.skipToken) {
         config.headers['authorization'] = `Bearer ${token}`;
     }
-    console.log('import.meta.env.VITE_CLIENT_ID;---', import.meta.env.VITE_CLIENT_ID)
     config.headers['client_id'] = import.meta.env.VITE_CLIENT_ID;
-
-    console.log('config---', config)
 
     return config
 }
