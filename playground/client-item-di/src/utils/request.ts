@@ -14,17 +14,13 @@ function requestSuccessCallback(config: AxiosRequestConfig<any>) {
     if (token && !config.headers?.skipToken) {
         config.headers['authorization'] = `Bearer ${token}`;
     }
-    console.log('import.meta.env.VITE_CLIENT_ID;---',import.meta.env.VITE_CLIENT_ID)
     config.headers['client_id'] = import.meta.env.VITE_CLIENT_ID;
-
-    console.log('config---', config)
 
     return config
 }
 
 function requestErrorCallback(error) {
     // 对请求错误进行处理
-    console.log('error----', error)
     if (error.response.status === 401) {
         eventEmitter.emit('API:UN_AUTHORIZED')
     } else if (error.response.status === 400) {
@@ -37,7 +33,6 @@ ins.interceptors.request.use(requestSuccessCallback, requestErrorCallback)
 ins.interceptors.response.use(responseSuccessCallback, responseErrorCallback)
 
 function responseSuccessCallback(response: AxiosResponse<any>) {
-    console.log('response----', response)
     if (response.status === 206) {
         eventEmitter.emit('API:UN_LOGIN', response)
         Session.clear();
