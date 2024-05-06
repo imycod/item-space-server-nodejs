@@ -7,6 +7,8 @@ const userSchema = new Schema({
     googleId: String,
     thumbnail: String,
     itemId:String,
+    accessToken:String,
+    refreshToken:String
 })
 
 const User = moogoose.model('user', userSchema);

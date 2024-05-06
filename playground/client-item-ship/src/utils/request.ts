@@ -33,8 +33,7 @@ ins.interceptors.request.use(requestSuccessCallback, requestErrorCallback)
 ins.interceptors.response.use(responseSuccessCallback, responseErrorCallback)
 
 function responseSuccessCallback(response: AxiosResponse<any>) {
-    debugger
-    console.log('response----responseSuccessCallback', response.data)
+    console.log('response----responseSuccessCallback', response)
     if (response.status === 206) {
         eventEmitter.emit('API:UN_LOGIN', response)
         Session.clear();

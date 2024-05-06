@@ -25,6 +25,7 @@ app.use(cors())
 app.use(cookieSession({
     maxAge: 24 * 60 * 60 * 1000, // day = hour * minute * second * millisecond
     keys: [process.env.SESSION_COOKIE_KEY],
+    // httpOnly: true
 }));
 // initialize passport
 setupPassport(app)

@@ -32,15 +32,15 @@ export const login = (data: any) => {
     Local.set('basicAuth', basicAuth);
     console.log('data----', data)
     console.log('dataObj----', dataObj)
-
+    
     return request({
-        url: '/api/auth/login',
+        url: `/v1/dialog/authorize`,
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
             // isToken: false,
             // Authorization: basicAuth,
         },
-        method: 'post',
+        method: 'get',
         params: {randomStr, grant_type},
         data: dataObj,
     });

@@ -22,6 +22,7 @@ const router = createRouter({
 });
 
 eventEmitter.on('API:UN_LOGIN', (response) => {
+    alert(response.headers.location)
     window.location.href = response.headers.location
 })
 

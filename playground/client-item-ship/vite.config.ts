@@ -6,14 +6,19 @@ export default defineConfig((mode) => {
     const env = loadEnv(mode.mode, process.cwd());
 
     return {
-
         plugins: [vue()],
         server: {
+            port: 5134,
             proxy: {
                 '/api': {
                     target: 'http://localhost:3000',
                     changeOrigin: true,
                     rewrite: (path) => path.replace(/^\/api/, '')
+                },
+                '/v1': {
+                    target: 'http://localhost:3001',
+                    changeOrigin: true,
+                    rewrite: (path) => path.replace(/^\/v1/, '')
                 },
                 '/oauth': {
                     target: 'http://localhost:3001',
@@ -24,7 +29,7 @@ export default defineConfig((mode) => {
                     target: 'http://localhost:11434/api',
                     changeOrigin: true,
                     rewrite: (path) => path.replace(/^\/ollama/, '')
-                }
+                },
             }
         },
         resolve: {
@@ -34,6 +39,6 @@ export default defineConfig((mode) => {
         },
         define: {
             __NEXT_NAME__: JSON.stringify(process.env.npm_package_name),
-        }
+        },
     }
 })

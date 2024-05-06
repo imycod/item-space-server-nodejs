@@ -1,7 +1,7 @@
 'use strict';
 
 const clients = [
-  { id: '1', name: 'ship', clientId: 'item_ship', clientSecret: 'item_ship_secret', isTrusted: false },
+  { id: '1', name: 'ship', clientId: 'item_ship', clientSecret: 'item_ship_secret', isTrusted: true },
   { id: '2', name: 'di', clientId: 'item_di', clientSecret: 'item_di_secret', isTrusted: true },
 ];
 

@@ -1,4 +1,4 @@
-export default {
+module.exports = {
     'item_ship': {
         // redirect_uri: 'http://127.0.0.1:5134/',
         redirect_uri: 'http://127.0.0.1:3000/auth/ship/callback',
