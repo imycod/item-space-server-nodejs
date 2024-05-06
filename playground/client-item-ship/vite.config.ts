@@ -11,22 +11,22 @@ export default defineConfig((mode) => {
             port: 5134,
             proxy: {
                 '/api': {
-                    target: 'http://localhost:3000',
+                    target: 'http://127.0.0.1:3000',
                     changeOrigin: true,
                     rewrite: (path) => path.replace(/^\/api/, '')
                 },
                 '/v1': {
-                    target: 'http://localhost:3001',
+                    target: 'http://127.0.0.1:3000',
                     changeOrigin: true,
                     rewrite: (path) => path.replace(/^\/v1/, '')
                 },
                 '/oauth': {
-                    target: 'http://localhost:3001',
+                    target: 'http://127.0.0.1:3001',
                     changeOrigin: true,
                     rewrite: (path) => path.replace(/^\/oauth/, '')
                 },
                 '/ollama': {
-                    target: 'http://localhost:11434/api',
+                    target: 'http://127.0.0.1:11434/api',
                     changeOrigin: true,
                     rewrite: (path) => path.replace(/^\/ollama/, '')
                 },

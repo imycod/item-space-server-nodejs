@@ -47,13 +47,6 @@
                 client: {},
                 transaction_id: ''
             })
-            const getData = async () => {
-                axios.get('/dialog/authorize/decision-before').then(res => {
-                    state.user = res.data.user
-                }).catch(err => {
-                    console.log(err)
-                })
-            }
 
             function decision(type) {
                 const data = {}
@@ -77,7 +70,7 @@
                 console.log(paramsObj);
                 state.client.name = paramsObj.params.client_name
                 state.transactionID = paramsObj.params.transactionId
-                getData()
+                state.user.name = paramsObj.params.user_name
             })
             return {
                 decision,

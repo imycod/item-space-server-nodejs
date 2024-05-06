@@ -1,8 +1,22 @@
 'use strict';
 
 const clients = [
-  { id: '1', name: 'ship', clientId: 'item_ship', clientSecret: 'item_ship_secret', isTrusted: false },
-  { id: '2', name: 'di', clientId: 'item_di', clientSecret: 'item_di_secret', isTrusted: true },
+  {
+    id: '1',
+    name: 'ship',
+    clientId: 'abc123',
+    clientSecret: 'ssh-secret',
+    isTrusted: false,
+    redirectUri: 'http://127.0.0.1:3000/callback',
+  },
+  {
+    id: '2',
+    name: 'di',
+    clientId: 'xyz123',
+    clientSecret: 'ssh-password',
+    isTrusted: true,
+    redirectUri: 'http://127.0.0.1:3000/callback',
+  },
 ];
 
 module.exports.findById = (id, done) => {

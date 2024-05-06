@@ -33,18 +33,14 @@ app.get('/logout', routes.site.logout);
 app.get('/account', routes.site.account);
 
 app.get('/dialog/authorize', routes.oauth2.authorization);
-app.get('/dialog/authorize/decision', (request,response)=>{
-    response.sendFile('dialog.html', {root: 'views'})
-});
-app.get('/dialog/authorize/decision-before',(request,response)=>{
-    response.status(200).json({ user: request.user })
-})
+// app.get('/dialog/authorize/decision', (request,response)=>{
+//     response.sendFile('dialog.html', {root: 'views'})
+// });
 app.post('/dialog/authorize/decision',routes.oauth2.decision);
 app.post('/oauth/token', routes.oauth2.token);
 
 app.get('/api/userinfo', routes.user.info);
 app.get('/api/clientinfo', routes.client.info);
-app.get('/user/status',routes.user.userStatus);
 
 app.listen(process.env.PORT || 3001);
 

@@ -30,6 +30,22 @@ eventEmitter.on("API:UN_LOGIN", (response) => {
   window.location.href = response.headers.location;
 });
 
+function parseUrl(url) {
+  const parsedUrl = new URL(url);
+  const params = {};
+
+  // 获取查询参数
+  parsedUrl.searchParams.forEach((value, key) => {
+    params[key] = value;
+  });
+
+  return {
+    protocol: parsedUrl.protocol,
+    host: parsedUrl.host,
+    pathname: parsedUrl.pathname,
+    params: params
+  };
+}
 router.beforeEach(
   async (
     to: RouteLocationNormalized,
@@ -37,13 +53,13 @@ router.beforeEach(
     next: any
   ) => {
     const stores = userInfo()
-    const loggedIn = await stores.checkStatus()
-    const token = Session.get("token");
-    alert(token)
-    if (token) {
+    // const token = Session.get("token");
+    // alert(token)
+    const {params}= parseUrl(window.location.href)
+    if (params.token) {
       next();
     }else{
-      await userInfo().login({});
+      await stores.login({});
     }
   }
 );

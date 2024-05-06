@@ -178,6 +178,7 @@ server.exchange(oauth2orize.exchange.refreshToken((client, refreshToken, scope, 
 module.exports.authorization = [
   login.ensureLoggedIn(),
   server.authorization((clientId, redirectUri, done) => {
+    console.log('authorization----',clientId, redirectUri)
     db.clients.findByClientId(clientId, (error, client) => {
       if (error) return done(error);
       // WARNING: For security purposes, it is highly advisable to check that
@@ -203,11 +204,19 @@ module.exports.authorization = [
   (request, response) => {
     // todo
     // response.sendFile('dialog.html', {root: 'views'})
-    console.log('auth----->200',{ transactionId: request.oauth2.transactionID, user: request.user, client: request.oauth2.client })
-    response.status(206)
-    response.setHeader('location', `http://localhost:3001/dialog/authorize/decision?transactionId=${request.oauth2.transactionID}&client_name=${request.oauth2.client.name}`)
-    response.end()
-    // response.render('dialog', { transactionId: request.oauth2.transactionID, user: request.user, client: request.oauth2.client });
+    // console.log('auth----->200',{ transactionId: request.oauth2.transactionID, user: request.user, client: request.oauth2.client })
+    // const redirect_uri=request.oauth2.client.redirectUri
+    // console.log('redirect_uri---',redirect_uri)
+    // response.status(206)
+    // response.setHeader('location', `http://localhost:3001/dialog/authorize/decision?redirect_uri=${redirect_uri}&transactionId=${request.oauth2.transactionID}&client_name=${request.oauth2.client.name}&user_name=${request.user.username}`)
+    // response.end()
+    // response.status(200).json({
+    //   transactionId: request.oauth2.transactionID,
+    //   user: request.user,
+    //   client: request.oauth2.client,
+    //   location: `http://localhost:3001/dialog/authorize/decision?redirect_uri=${redirect_uri}&transactionId=${request.oauth2.transactionID}&client_name=${request.oauth2.client.name}&user_name=${request.user.username}`
+    // });
+    response.render('dialog', { transactionId: request.oauth2.transactionID, user: request.user, client: request.oauth2.client });
   },
 ];
 
