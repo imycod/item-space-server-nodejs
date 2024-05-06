@@ -48,6 +48,7 @@
     "passport-oauth": "~1.0.0",
     "passport-oauth2-client-password": "^0.1.2",
     "qs": "^6.12.1",
+    "request-promise": "^4.2.6",
     "xlsx": "^0.18.5"
   },
   "devDependencies": {
