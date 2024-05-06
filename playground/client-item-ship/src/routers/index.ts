@@ -25,16 +25,16 @@ const router = createRouter({
 });
 
 eventEmitter.on('API:UN_LOGIN', (response) => {
-    alert(response.headers.location)
     window.location.href = response.headers.location
 })
 
 router.beforeEach(async (to: RouteLocationNormalized, from: RouteLocationNormalized, next: any) => {
-    const stores = userInfo()
-    const loggedIn = await stores.checkStatus()
-    if (loggedIn) {
-        next()
-    }
+    // const stores = userInfo()
+    // const loggedIn = await stores.checkStatus()
+    // if (loggedIn) {
+    //     next()
+    // }
+    next()
 })
 
 export default router

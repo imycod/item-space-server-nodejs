@@ -1,8 +1,9 @@
 import express from 'express';
 import jwt from 'jsonwebtoken';
-
+import cors from "cors"
 const app = express();
 app.use(express.json());
+app.use(cors())
 
 const SECRET_KEY = 'secretKey';
 const REFRESH_SECRET_KEY = 'refreshSecretKey';
@@ -51,7 +52,7 @@ app.get('/token/refresh', (req, res) => {
 	}
 	try {
 		console.log(refreshToken);
-		const payload = jwt.verify(refreshToken, REFRESH_SECRET_KEY);
+		const payload = jwt.verify(refreshToken.replace('Bearer ', ''), REFRESH_SECRET_KEY);
 		const newToken = jwt.sign({ username: payload.username }, SECRET_KEY, { expiresIn: '3s' });
 
 		res.setHeader('Authorization', `Bearer ${newToken}`);
