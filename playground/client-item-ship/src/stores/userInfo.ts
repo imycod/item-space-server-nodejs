@@ -9,12 +9,10 @@ export const userInfo = defineStore("userInfo", {
   }),
   actions: {
     login(data) {
-      console.log("login");
       return LoginApi(data);
     },
     async checkStatus() {
       const result = await checkUserStatus();
-      console.log("result.loggedIn---", result.loggedIn);
       this.loginStatus = result.loggedIn!;
       return result.loggedIn;
     },

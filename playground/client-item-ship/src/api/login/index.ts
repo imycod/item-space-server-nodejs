@@ -9,7 +9,7 @@ export const refreshTokenApi = (refresh_token: string) => {
     const basicAuth = Local.get('basicAuth');
 
     return request({
-        url: '/api/auth/oauth2/token',
+        url: '/auth/oauth2/token',
         headers: {
             skipToken: true,
             Authorization: basicAuth,
@@ -34,13 +34,13 @@ export const login = (data: any) => {
     console.log('dataObj----', dataObj)
     
     return request({
-        url: `/v1/login`,
+        url: `/auth/login`,
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
             // isToken: false,
             // Authorization: basicAuth,
         },
-        method: 'get',
+        method: 'post',
         params: {randomStr, grant_type},
         data: dataObj,
     });

@@ -54,13 +54,8 @@ router.beforeEach(
 		next: any
 	) => {
 		const stores = userInfo()
-		// 获取查询参数
-		const {params} = parseUrl(window.location.href)
-		// 把token存到sessionStorage
-		if (params.token) {
-			Session.set("token", params.token);
-		}
 		const token = Session.get("token");
+		alert(token + '<---------------------token')
 		if (token) {
 			next();
 		} else {

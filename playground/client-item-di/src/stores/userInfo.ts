@@ -8,13 +8,11 @@ export const userInfo = defineStore('userInfo', {
         loginStatus:false,
     }),
     actions: {
-        async login() {
-            console.log('login')
-            await LoginApi({})
+        async login(data) {
+            await LoginApi(data)
         },
         async checkStatus() {
             const result = await checkUserStatus()
-            console.log('result.loggedIn---',result.loggedIn)
             this.loginStatus = result.loggedIn!
             return result.loggedIn
         },

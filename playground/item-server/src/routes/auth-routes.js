@@ -20,11 +20,12 @@ router.post("/login", (req, res) => {
     res.status(206);
     res.setHeader(
       "location",
-      `http://localhost:3001/dialog/authorize?response_type=code&client_id=${clientConfig[client_id].client_id}&redirect_uri=${clientConfig[client_id].redirect_uri}`
+      `http://127.0.0.1:3001/dialog/authorize?response_type=code&client_id=${clientConfig[client_id].client_id}&redirect_uri=${clientConfig[client_id].redirect_uri}`
     );
     res.end();
   }
 });
+// https://segmentfault.com/a/1190000006025804
 
 // auth/logout
 router.get("/logout", (req, res, next) => {
@@ -62,20 +63,15 @@ router.get(
 router.get("/ship/callback", passport.authenticate("ship"), (req, res) => {
   const token = req.user.accessToken;
   const refreshToken = req.user.refreshToken;
-  res.cookie("token", req.user.accessToken, {
+  res.cookie("token", token, {
     maxAge: 10 * 60 * 1000,
-    httpOnly: true,
+    httpOnly: false,
   });
-  res.cookie("refreshToken", req.user.refreshToken, {
+  res.cookie("refreshToken", refreshToken, {
     maxAge: 24 * 60 * 60 * 1000,
-    httpOnly: true,
+    httpOnly: false,
   });
-  res.status(206).send({
-    message: "auth success",
-    token,
-    refreshToken,
-    redirect_uri: "http://127.0.0.1:5134/#/",
-  });
+  res.redirect("/ship");
 });
 
 // auth/item
@@ -86,15 +82,17 @@ router.get(
   })
 );
 router.get("/di/callback", passport.authenticate("di"), (req, res) => {
-  // res.status(206)
-  // res.setHeader('location', ``)
-  // res.end()
-
-  res.redirect("http://127.0.0.1:5133/");
-  // res.status(206).send({
-  //     message: 'auth success',
-  //     redirect_uri: 'http://127.0.0.1:5133/#/'
-  // })
+  const token = req.user.accessToken;
+  const refreshToken = req.user.refreshToken;
+  res.cookie("token", token, {
+    maxAge: 10 * 60 * 1000,
+    httpOnly: false,
+  });
+  res.cookie("refreshToken", refreshToken, {
+    maxAge: 24 * 60 * 60 * 1000,
+    httpOnly: false,
+  });
+  res.redirect("/di");
 });
 
 export default router;

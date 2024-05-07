@@ -30,12 +30,10 @@ export const login = (data: any) => {
 	const basicAuth = 'Basic Y2FzOmNhcw==';
 	// 保存当前选中的 basic 认证信息
 	Local.set('basicAuth', basicAuth);
-	console.log('data----', data)
-	console.log('dataObj----', dataObj)
 
 	return request({
 		// url: '/auth/oauth/token',
-		url: '/login',
+		url: '/auth/login',
 		headers: {
 			'Content-Type': 'application/x-www-form-urlencoded',
 			// isToken: false,

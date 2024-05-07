@@ -3,7 +3,7 @@ import ollama from 'ollama/browser'
 
 export function generateApi(prompt: string, model: string = 'llama2') {
     return request({
-        url: '/ollama/generate',
+        url: '/generate',
         method: 'post',
         // responseType:'stream',
         data: {

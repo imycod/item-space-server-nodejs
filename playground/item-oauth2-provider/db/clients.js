@@ -7,7 +7,6 @@ const clients = [
     clientId: 'abc123',
     clientSecret: 'ssh-secret',
     isTrusted: false,
-    redirectUri: 'http://127.0.0.1:3000/callback',
   },
   {
     id: '2',
@@ -15,7 +14,6 @@ const clients = [
     clientId: 'xyz123',
     clientSecret: 'ssh-password',
     isTrusted: true,
-    redirectUri: 'http://127.0.0.1:3000/callback',
   },
 ];
 

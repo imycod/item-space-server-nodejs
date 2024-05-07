@@ -11,12 +11,14 @@ configDotenv();
 // once we have the user or user tag, we need to store the user in the session
 // 会和cookieSession一起工作
 passport.serializeUser((user, done) => {
+  console.log('serializeUser-----',user);
   // 调用这个函数，这个函数会自动的把id传递到某个地方，这个地方会把id放到cookie里面
   // @ts-ignore
   done(null, user._id);
 });
 
 passport.deserializeUser((id, done) => {
+  console.log('deserializeUser-----',id);
   // 当用户下次访问我们的网站的时候，我们会拿到cookie里面的id，去找到这个用户
   User.findById(id).then((user) => {
     done(null, user); // 找到后把这个用户传递到下个stage
@@ -76,9 +78,13 @@ const itemShipStrategy = new OAuth2Strategy(
     clientSecret: clientConfig["item_ship"].client_secret,
   },
   function (accessToken, refreshToken, profile, done) {
-    console.log("OAuth2Strategy----->", { accessToken, refreshToken });
-    console.log("item---profile---->", profile);
-    User.findOne({ itemId: profile.user_id }).then((record) => {
+    console.log("OAuth2Strategy-----ship---->", { accessToken, refreshToken });
+    console.log("item---profile----ship---->", profile);
+    User.findOneAndUpdate(
+      { itemId: profile.user_id }, // 查询条件
+      { $set: { /* 更新的字段和值 */ } }, // 更新操作
+      { new: true } // 选项：返回更新后的文档
+    ).then((record) => {
       if (record) {
         // already have the user
         // 传递给 serializeUser

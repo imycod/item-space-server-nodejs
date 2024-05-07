@@ -232,7 +232,6 @@ module.exports.decision = [
   server.decision(),
 ];
 
-
 // Token endpoint.
 //
 // `token` middleware handles client requests to exchange authorization grants
