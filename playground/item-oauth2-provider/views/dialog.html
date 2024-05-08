@@ -54,6 +54,7 @@
                 if (type === 'Deny') {
                     data['cancel'] = 'Deny'
                 }
+                // todo 服务端setCookie，这边判断是否有cookie，如果有则跳转到redirect_uri
                 axios.post('/dialog/authorize/decision', data).then(res => {
                     console.log(res)
                     if (res.status === 206) {

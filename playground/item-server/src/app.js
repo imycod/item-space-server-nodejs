@@ -55,6 +55,7 @@ function ensureAuthenticated(req, res, next) {
 }
 
 app.get("/ship", ensureAuthenticated, (req, res) => {
+  console.log('-------->login')
   res.sendFile("index.html", { root: "src/views/ship" });
 });
 app.get("/di", ensureAuthenticated, (req, res) => {
