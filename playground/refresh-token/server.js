@@ -13,7 +13,7 @@ app.post('/token/login', (req, res) => {
 		return res.status(400).send('Username is required');
 	}
 
-	const token = jwt.sign({username}, SECRET_KEY, {expiresIn: '3s'});
+	const token = jwt.sign({username}, SECRET_KEY, {expiresIn: '30s'});
 	const refreshToken = jwt.sign({username}, REFRESH_SECRET_KEY, {expiresIn: '7d'});
 
 	res.setHeader('Authorization', `Bearer ${token}`);
@@ -43,7 +43,6 @@ app.get('/token/protection', (req, res) => {
 		})
 	}
 })
-
 app.get('/token/refresh', (req, res) => {
 	// 用长token换短token
 	const refreshToken = req.headers['authorization'];
@@ -51,9 +50,8 @@ app.get('/token/refresh', (req, res) => {
 		return res.status(401).send('Refresh token is required');
 	}
 	try {
-		console.log(refreshToken);
 		const payload = jwt.verify(refreshToken.replace('Bearer ', ''), REFRESH_SECRET_KEY);
-		const newToken = jwt.sign({ username: payload.username }, SECRET_KEY, { expiresIn: '3s' });
+		const newToken = jwt.sign({ username: payload.username }, SECRET_KEY, { expiresIn: '30s' });
 
 		res.setHeader('Authorization', `Bearer ${newToken}`);
 		res.send({
@@ -67,6 +65,6 @@ app.get('/token/refresh', (req, res) => {
 		})
 	}
 })
-app.listen(3001, () => {
-	console.log('Server is running on http://localhost:3001');
+app.listen(3000, () => {
+	console.log('Server is running on http://localhost:3000');
 });
