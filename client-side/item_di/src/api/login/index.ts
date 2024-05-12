@@ -33,7 +33,7 @@ export const login = (data: any) => {
 
 	return request({
 		// url: '/auth/oauth/token',
-		url: '/auth/login',
+		url: '/login',
 		headers: {
 			'Content-Type': 'application/x-www-form-urlencoded',
 			// isToken: false,

@@ -35,7 +35,6 @@ router.beforeEach(
   ) => {
     const stores = userInfo();
     const token = Session.get("token");
-    alert(token + "<---------------------token");
     if (token) {
       next();
     } else {
