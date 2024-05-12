@@ -4,8 +4,10 @@
   "scripts": {
     "dev:auth": "cd server-side/auth && npm run start",
     "dev:demo": "cd server-side/demo && npm run dev",
+    "dev:demo-item": "cd server-side/demo && npm run dev:item",
     "dev:ship": "cd client-side/item_ship && npm run dev",
-    "dev:di": "cd client-side/item_di && npm run dev"
+    "dev:di": "cd client-side/item_di && npm run dev",
+    "dev:auth-client": "cd client-side/auth && npm run dev"
   },
   "repository": {
     "type": "git",
