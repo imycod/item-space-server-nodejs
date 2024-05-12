@@ -5,7 +5,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "xlsx": "node ./scripts/xlsx/index.js",
+    "xlsx:permission": "node ./scripts/xlsx/permission/index.js",
+    "xlsx:i18n-json2table": "node ./scripts/xlsx/i18n/json2table.js",
+    "xlsx:i18n-table2json": "node ./scripts/xlsx/i18n/table2json.js",
     "item-oauth2:provider": "nodemon ./playground/oauth2-provider/app.js",
     "item:server": "nodemon ./playground/item-server/src/app.js",
     "item-demo:sso": "nodemon playground/item-sso-demo/index.js",
