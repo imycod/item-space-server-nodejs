@@ -5,8 +5,10 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "item-oauth2:provider": "nodemon ./playground/oauth2-provider/app.js",
-    "item:product": "nodemon ./playground/item-product/server/src/app.js"
+    "oauth2:provider": "cd oauth2-provider && npm run start",
+    "server": "cd server && npm run dev",
+    "build:ship": "cd item_ship_client && npm run build",
+    "build:di": "cd item_di_client && npm run build"
   },
   "repository": {
     "type": "git",
