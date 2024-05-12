@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #eeeeee;
+        }
+
+        .form-container {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .form {
+            background-color: #ffffff;
+            width: 810px;
+            padding: 30px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px -3px #333;
+
+            display: flex;
+        }
+
+        .form .left {
+            width: 500px;
+            text-align: center;
+        }
+
+        .form .right {
+            width: 300px;
+        }
+
+        input {
+            border-radius: 100px;
+            padding: 10px 15px;
+            width: 50%;
+            border: 1px solid #D9D9D9;
+            outline: none;
+            display: block;
+            margin: 20px auto 20px auto;
+        }
+
+        .sign-in {
+            border-radius: 100px;
+            border: none;
+            background: #719BE6;
+            width: 50%;
+            padding: 10px;
+            color: #FFFFFF;
+            box-shadow: 0 2px 10px -3px #719BE6;
+            display: block;
+            margin: 10px auto 10px auto;
+            cursor: pointer;
+        }
+
+        .create-account {
+            text-align: center;
+            color: #719BE6;
+            text-decoration: none;
+            padding: 5px;
+            display: inline-block;
+        }
+
+        .create-account:hover {
+            text-decoration: underline;
+        }
+
+
+        /* Shared */
+        .loginBtn {
+            box-sizing: border-box;
+            position: relative;
+            /* width: 13em;  - apply for fixed size */
+            margin: 0.2em;
+            padding: 0 15px 0 46px;
+            border: none;
+            text-align: left;
+            line-height: 34px;
+            white-space: nowrap;
+            border-radius: 0.2em;
+            font-size: 16px;
+            color: #FFF;
+            cursor: pointer;
+        }
+
+        .loginBtn:before {
+            content: "";
+            box-sizing: border-box;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 34px;
+            height: 100%;
+        }
+
+        .loginBtn:focus {
+            outline: none;
+        }
+
+        .loginBtn:active {
+            box-shadow: inset 0 0 0 32px rgba(0, 0, 0, 0.1);
+        }
+
+
+        /* Facebook */
+        .loginBtn--facebook {
+            background-color: #4C69BA;
+            background-image: linear-gradient(#4C69BA, #3B55A0);
+            /*font-family: "Helvetica neue", Helvetica Neue, Helvetica, Arial, sans-serif;*/
+            text-shadow: 0 -1px 0 #354C8C;
+        }
+
+        .loginBtn--facebook:before {
+            border-right: #364e92 1px solid;
+            background: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/14082/icon_facebook.png') 6px 6px no-repeat;
+        }
+
+        .loginBtn--facebook:hover,
+        .loginBtn--facebook:focus {
+            background-color: #5B7BD5;
+            background-image: linear-gradient(#5B7BD5, #4864B1);
+        }
+
+
+        /* Google */
+        .loginBtn--google {
+            /*font-family: "Roboto", Roboto, arial, sans-serif;*/
+            background: #DD4B39;
+        }
+
+        .loginBtn--google:before {
+            border-right: #BB3F30 1px solid;
+            background: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/14082/icon_google.png') 6px 6px no-repeat;
+        }
+
+        .loginBtn--google:hover,
+        .loginBtn--google:focus {
+            background: #E74B37;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <div class="form-container">
+        <h1>OAuth2 Playground</h1>
+        <div class="form">
+            <div class="left">
+                <h1>login</h1>
+                <input type="email" v-model="state.username" name="email" placeholder="Email"/>
+                <input type="password" v-model="state.password" name="Password" placeholder="Password"/>
+                <button @click="login" class="sign-in">Sign in</button>
+                <a class="create-account" href="/">Create account</a>
+            </div>
+            <div class="right">
+                <!--
+                    这两种方式的主要区别在于它们的工作方式和使用的上下文。
+                      <a>标签是HTML中的一个元素，当用户点击这个链接时，浏览器会导航到href属性指定的URL。
+                      这是一个同步操作，浏览器会等待新页面加载完成。  而axios.get('/auth/google')是一个异步的HTTP请求，
+                      它是在JavaScript中执行的。当这个请求被发送时，JavaScript不会等待响应，而是继续执行后面的代码。
+                      当响应到达时，await关键字会暂停函数的执行，直到Promise解析为止。
+                        关于为什么axios.get('/auth/google')会返回302重定向，
+                        这是因为/auth/google路由可能被配置为在接收到请求时发送一个重定向响应。这通常是因为该路由需要用户被重定向到另一个URL，
+                        例如一个登录页面或者第三方的OAuth服务。在浏览器中点击一个链接会自动跟随重定向，但在axios中，
+                        你需要配置axios来自动跟随重定向，或者在接收到302响应后手动发送一个新的请求到重定向的URL。
+                -->
+                <a href="/auth/google">
+                    <button class="loginBtn loginBtn--google">
+                        Login with Google
+                    </button>
+                </a>
+
+                <button class="loginBtn loginBtn--facebook">
+                    Login with Facebook
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.bootcdn.net/ajax/libs/vue/3.4.25/vue.global.prod.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/axios/1.6.8/axios.min.js"></script>
+<script>
+    const {ref, reactive, onMounted, createApp} = Vue
+    const app = createApp({
+        setup() {
+            const state = reactive({
+                username: '',
+                password: ''
+            })
+            const login = () => {
+                console.log(state)
+                axios.post('http://127.0.0.1:3001/login', state).then(res => {
+                    console.log(res)
+                }).catch(err => {
+                    console.log(err)
+                })
+            }
+            const loginGoogle = async () => {
+                await axios.get('/auth/google')
+            }
+            return {
+                state,
+                login,
+                loginGoogle,
+            }
+        },
+    }).mount('#app')
+</script>
+</body>
+</html>
