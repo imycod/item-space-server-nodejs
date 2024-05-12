@@ -9,6 +9,7 @@ const Client = require('../models/client.model')
 passport.use(new LocalStrategy(async (username, password, done) => {
     try {
         const user = await User.findOne({username: username})
+        console.log('user---',user)
         if (!user) return done(null, false);
         if (user.password !== password) return done(null, false);
         return done(null, user);
@@ -19,8 +20,13 @@ passport.use(new LocalStrategy(async (username, password, done) => {
 
 passport.serializeUser((user, done) => done(null, user._id));
 
-passport.deserializeUser((id, done) => {
-    User.findById(id, (error, user) => done(error, user));
+passport.deserializeUser(async  (id, done) => {
+    try {
+        const user=await User.findById(id)
+        done(null, user)
+    }catch (error) {
+        done(error, null)
+    }
 });
 
 function verifyClient(clientId, clientSecret, done) {

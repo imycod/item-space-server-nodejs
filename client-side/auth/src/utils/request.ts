@@ -26,6 +26,10 @@ ins.interceptors.request.use(requestSuccessCallback, requestErrorCallback)
 ins.interceptors.response.use(responseSuccessCallback, responseErrorCallback)
 
 function responseSuccessCallback(response: AxiosResponse<any>) {
+    if (response.status === 206) {
+        window.location.href = response.headers.location;
+        throw response.data;
+    }
     return response.data;
 }
 
