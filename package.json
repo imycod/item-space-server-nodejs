@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "refresh-token": "nodemon playground/refresh-token/server.js"
+    "refresh-token": "nodemon refresh-token/server.js"
   },
   "repository": {
     "type": "git",
