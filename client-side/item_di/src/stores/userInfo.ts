@@ -1,5 +1,5 @@
 import {defineStore} from 'pinia'
-import {login as LoginApi} from "@/api/login/index"
+import {login as LoginApi, toAuthorize} from "@/api/login/index"
 import {checkUserStatus} from "@/api/user";
 
 export const userInfo = defineStore('userInfo', {
@@ -8,6 +8,9 @@ export const userInfo = defineStore('userInfo', {
         loginStatus:false,
     }),
     actions: {
+        async authorize(){
+            toAuthorize()
+        },
         async login(data) {
             await LoginApi(data)
         },

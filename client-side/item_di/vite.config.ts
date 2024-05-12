@@ -18,6 +18,11 @@ export default defineConfig((mode) => {
                     changeOrigin: true,
                     rewrite: (path) => path.replace(/^\/api/, ""),
                 },
+                "/oauth2": {
+                    target: "http://127.0.0.1:3001",
+                    changeOrigin: true,
+                    rewrite: (path) => path.replace(/^\/oauth2/, ""),
+                },
             },
         },
         resolve: {

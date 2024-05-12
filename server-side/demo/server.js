@@ -42,16 +42,40 @@ app.post('/user/create', (req, res) => {
         res.json({message: 'error', data: err});
     });
 })
-app.get('/login', (req, res) => {
 
+
+const clients = {
+    'item_di': {
+        client_id: process.env.CLIENT_ID,
+        client_secret: process.env.CLIENT_SECRET,
+        redirect_uri: process.env.REDIRECT_URI,
+    }
+}
+
+app.get('/login', (req, res) => {
+    const authEndpoint = "http://127.0.0.1:5132/login";
+    const client = clients[req.headers.client_id]
+    const queryParams = new URLSearchParams({
+        response_type: "code",
+        client_id: req.headers.client_id,
+        redirect_uri: client.redirect_uri,
+    });
+
+    const authUrl = `${authEndpoint}?${queryParams}`;
+
+    res.status(206);
+    res.setHeader("location", authUrl);
+    res.end();
 })
-app.post('/login', passport.authenticate('local'), (req, res) => {
-    console.log(req);
-    res.json({code: 0, message: 'done', data: req.user});
-})
+app.post('/auth/login', passport.authenticate('local', {
+    successRedirect: '/auth/authorize',
+    failureRedirect: '/login',
+    failureFlash: true
+}))
 app.get('/auth/authorize',
     login.ensureLoggedIn(),
     server.authorize(function (clientID, redirectURI, done) {
+        console.log('clientID---',clientID)
         Clients.findOne(clientID, function (err, client) {
             if (err) {
                 return done(err);

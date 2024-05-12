@@ -7,6 +7,7 @@ import {
 import { userInfo } from "@/stores/userInfo.ts";
 import {Local, Session} from "@/utils/storage.ts"
 import eventEmitter from "@/utils/eventEmitter.ts";
+import {toAuthorize} from "@/api/login";
 
 const router = createRouter({
   history: createWebHashHistory(),

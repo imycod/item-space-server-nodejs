@@ -1,12 +1,19 @@
 import axios, {AxiosInstance, AxiosRequestConfig, AxiosResponse} from "axios"
+import {parseUrl} from "./index.ts";
 
 const ins = axios.create({
-    baseURL: import.meta.env.VITE_API_URL,
+    baseURL: '/',
     timeout: 10000
 })
 
+
 function requestSuccessCallback(config: AxiosRequestConfig<any>) {
-    config.headers['client_id'] = import.meta.env.VITE_CLIENT_ID;
+    const paramsObj = parseUrl(location.href)
+    //@ts-ignore
+    const {client_id,redirect_uri,response_type}=paramsObj.params
+    config.headers['client_id'] = client_id;
+    config.headers['redirect_uri'] = redirect_uri;
+    config.headers['response_type'] = response_type;
 
     return config
 }
