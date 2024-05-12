@@ -5,11 +5,8 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "xlsx": "node ./scripts/xlsx/index.js",
     "item-oauth2:provider": "nodemon ./playground/oauth2-provider/app.js",
-    "item:server": "nodemon ./playground/item-server/src/app.js",
-    "item-demo:sso": "nodemon playground/item-sso-demo/index.js",
-    "oauth-demo:consumer": "nodemon playground/oauth2-consumer-demo/server/app.js"
+    "item:product": "nodemon ./playground/item-product/server/src/app.js"
   },
   "repository": {
     "type": "git",
