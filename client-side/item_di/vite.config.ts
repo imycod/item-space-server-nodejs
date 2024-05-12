@@ -4,14 +4,12 @@ import path from "path"
 
 // https://vitejs.dev/config/
 export default defineConfig((mode) => {
-    console.log('__dirname----', __dirname)
-    console.log(path.resolve(__dirname, '../server/src/views/di'))
     return {
         base: "./",
         plugins: [vue()],
-        build: {
-            outDir: path.resolve(__dirname, '../server/src/views/di'),
-        },
+        // build: {
+        //     outDir: path.resolve(__dirname, '../server/src/views/di'),
+        // },
         server: {
             port: 5133,
             proxy: {

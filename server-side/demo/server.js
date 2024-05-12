@@ -6,6 +6,8 @@ const request = require("request-promise");
 
 const app = express();
 
+console.log(process.env)
+
 app.use(
 	session({
 		secret: "your_secret_here",

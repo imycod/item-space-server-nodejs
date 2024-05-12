@@ -1,12 +1,11 @@
 {
   "name": "item-space-server-nodejs",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "type": "module",
   "scripts": {
-    "item-oauth2:provider": "nodemon ./playground/oauth2-provider/app.js",
-    "item:product": "nodemon ./playground/item-product/server/src/app.js"
+    "dev:auth": "cd server-side/auth && npm run start",
+    "dev:demo": "cd server-side/demo && npm run dev",
+    "dev:ship": "cd client-side/item_ship && npm run dev",
+    "dev:di": "cd client-side/item_di && npm run dev"
   },
   "repository": {
     "type": "git",
