@@ -32,7 +32,9 @@ app.get(
   }),
 );
 
-app.post("/callback", passport.authenticate("ship"), (req, res) => {
+app.get("/callback", passport.authenticate("ship"), (req, res) => {
+  console.log('req------',req.oauth2)
+  console.log('req------',req.user)
   res.send("Callback");
 });
 
