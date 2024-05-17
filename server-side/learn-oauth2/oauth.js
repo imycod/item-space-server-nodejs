@@ -35,7 +35,8 @@ server.grant(
     code
       .save()
       .then((code) => {
-        callback(null, code);
+        console.log(code)
+        callback(null, code.code);
       })
       .catch((err) => {
         return callback(err);
