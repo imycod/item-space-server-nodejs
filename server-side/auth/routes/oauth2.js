@@ -5,7 +5,6 @@ const passport = require('passport');
 const login = require('connect-ensure-login');
 const db = require('../db');
 const utils = require('../utils');
-const {transforms2d} = require("caniuse-lite/data/features");
 
 // Create OAuth 2.0 server
 const server = oauth2orize.createServer();

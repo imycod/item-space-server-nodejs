@@ -1,3 +1,11 @@
+/*
+ * @Author: wuxs 317009160@qq.com
+ * @Date: 2024-05-16 20:51:33
+ * @LastEditors: wuxs 317009160@qq.com
+ * @LastEditTime: 2024-05-17 07:01:14
+ * @FilePath: \primevue-tailwind-elementd:\code\workcode\item-space-server-nodejs\client-side\item_di\src\utils\request.ts
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ */
 import axios, {AxiosInstance, AxiosRequestConfig, AxiosResponse} from "axios"
 import eventEmitter from "@/utils/eventEmitter.ts";
 import {Local, Session} from "@/utils/storage.ts"
@@ -41,7 +49,16 @@ function responseSuccessCallback(response: AxiosResponse<any>) {
 }
 
 function responseErrorCallback(error) {
-    const status = Number(error.response.status)
+    console.log('error.response---',error.response);
+    
+    const status = Number(error.response?.status)
+    if (status === 401) {
+        const queryString = new URLSearchParams(error.response.data.query).toString();
+        console.log('queryString---',queryString);
+        
+        eventEmitter.emit('API:UN_LOGIN',error.response)
+        Session.clear();
+    }
     if (status === 424) {
         Session.clear(); // 清除浏览器全部临时缓存
         return;

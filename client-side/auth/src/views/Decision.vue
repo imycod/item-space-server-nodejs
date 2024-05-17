@@ -2,19 +2,17 @@
 import {reactive} from "vue"
 import {decision} from "@/api/index";
 
+const transactionObj = JSON.parse(sessionStorage.getItem('transaction_oauth2') || '{}')
+
 const state = reactive({
-  user: {
-    username: 'admin'
-  },
-  client: {
-    name: 'Client'
-  },
-  transactionID: '1234567890'
+  user:transactionObj.user,
+  client: transactionObj.client,
+  transactionID: transactionObj.transactionID
 })
 
 async function authorize(val: string) {
   const result = await decision({
-    transactionID: state.transactionID,
+    transaction_id: state.transactionID,
     decision: val
   })
   console.log(result)

@@ -14,7 +14,7 @@ export default defineConfig({
         proxy: {
             "/api": {
                 // 身份验证服务器
-                target: "http://127.0.0.1:3001",
+                target: "http://127.0.0.1:3000",
                 changeOrigin: true,
                 rewrite: (path) => path.replace(/^\/api/, ""),
             },
